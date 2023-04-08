@@ -5,13 +5,13 @@ import { EffectComposer, SSAO, Bloom } from "@react-three/postprocessing"
 export default function App() {
   return (
     <Canvas shadows gl={{ stencil: false, antialias: false }} camera={{ position: [0, 0, 20], fov: 50, near: 17, far: 40 }}>
-      <fog attach="fog" args={["red", 25, 35]} />
-      <color attach="background" args={["#4174ff"]} />
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[-10, -10, -5]} intensity={0.5} />
+      <fog attach="fog" args={["red", 35, 45]} />
+      <color attach="background" args={["#4b46db"]} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[-20, -20, -10]} intensity={0.5} />
       <directionalLight
-        castShadow
-        intensity={4}
+        // castShadow
+        intensity={8}
         position={[50, 50, 25]}
         shadow-mapSize={[256, 256]}
         shadow-camera-left={-10}
@@ -28,19 +28,19 @@ export default function App() {
       </Physics>
       <EffectComposer>
         <SSAO radius={0.4} intensity={50} luminanceInfluence={0.4} color="red" />
-        <Bloom intensity={1.25} kernelSize={3} luminanceThreshold={0.5} luminanceSmoothing={0.0} />
+        <Bloom intensity={2.25} kernelSize={3} luminanceThreshold={0.5} luminanceSmoothing={0.0} />
       </EffectComposer>
     </Canvas>
   )
 }
 
-function InstancedSpheres({ count = 100 }) {
+function InstancedSpheres({ count = 150 }) {
   const { viewport } = useThree()
-  const [ref] = useSphere((index) => ({ mass: 50, position: [4 - Math.random() * 8, viewport.height, 0, 0], args: [1.8] }))
+  const [ref] = useSphere((index) => ({ mass: 200, position: [4 - Math.random() * 8, viewport.height, 0, 0], args: [1.2] }))
   return (
-    <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, count]}>
+    <instancedMesh ref={ref} args={[null, null, count]}>
       <sphereGeometry args={[1.2, 32, 32]} />
-      <meshLambertMaterial color="#4174ff" />
+      <meshLambertMaterial color="orange" />
     </instancedMesh>
   )
 }
