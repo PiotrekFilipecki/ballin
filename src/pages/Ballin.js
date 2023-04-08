@@ -2,11 +2,11 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Physics, usePlane, useSphere } from "@react-three/cannon"
 import { EffectComposer, SSAO, Bloom } from "@react-three/postprocessing"
 
-export default function App() {
+export default function Ballin() {
   return (
     <Canvas shadows gl={{ stencil: false, antialias: false }} camera={{ position: [0, 0, 20], fov: 50, near: 17, far: 40 }}>
       <fog attach="fog" args={["red", 25, 35]} />
-      <color attach="background" args={["#4174ff"]} />
+      <color attach="background" args={["#feef8a"]} />
       <ambientLight intensity={1.5} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />
       <directionalLight
@@ -34,13 +34,13 @@ export default function App() {
   )
 }
 
-function InstancedSpheres({ count = 100 }) {
+function InstancedSpheres({ count = 200 }) {
   const { viewport } = useThree()
-  const [ref] = useSphere((index) => ({ mass: 50, position: [4 - Math.random() * 8, viewport.height, 0, 0], args: [1.8] }))
+  const [ref] = useSphere((index) => ({ mass: 100, position: [4 - Math.random() * 8, viewport.height, 0, 0], args: [1.2] }))
   return (
     <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, count]}>
-      <sphereGeometry args={[1.2, 32, 32]} />
-      <meshLambertMaterial color="#4174ff" />
+      <sphereBufferGeometry args={[1.2, 32, 32]} />
+      <meshLambertMaterial color="#ff7b00" />
     </instancedMesh>
   )
 }
